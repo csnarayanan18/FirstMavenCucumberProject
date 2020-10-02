@@ -15,7 +15,7 @@ public class CRMFeatureStepDef {
 
 	@When("I complete action")
 	public void i_complete_action() {
-	    
+		System.out.println("I complete action");
 	}
 
 	@Then("I want to Logout")
