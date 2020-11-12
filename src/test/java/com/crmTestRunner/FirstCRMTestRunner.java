@@ -10,8 +10,9 @@ import org.testng.annotations.DataProvider;
 		features ={"src/test/java/com/crmfeature"},
 		glue={"com.crm.stepdef"},
 		monochrome = true,
-		dryRun = false,
-		tags = ("@crmscenario"))
+		dryRun = false
+		//tags = ("@crmscenario")
+		)
 
 
 public class FirstCRMTestRunner extends AbstractTestNGCucumberTests {
