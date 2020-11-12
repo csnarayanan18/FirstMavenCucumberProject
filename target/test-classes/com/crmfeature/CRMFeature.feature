@@ -20,4 +20,10 @@ Feature: CRM Launching Feature
     Given I want to Login
     When I complete action
     Then I want to Logout
+    
+    @crmscenarioTest
+  Scenario: Login Logout Feature Test
+    Given I want to Login
+    When I complete action
+    Then I want to Logout
 
