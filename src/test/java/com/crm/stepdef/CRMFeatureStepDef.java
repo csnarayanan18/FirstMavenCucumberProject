@@ -12,14 +12,21 @@ public class CRMFeatureStepDef {
 	 
 		System.out.println(username+"_"+password);
 	}
+	@Given("I want to Login")
+	public void i_want_to_login() {
+	 
+		System.out.println("Login Method");
+	}
 
 	@When("I complete action")
 	public void i_complete_action() {
-		System.out.println("I complete action");
+		System.out.println("Action Method");
 	}
 
 	@Then("I want to Logout")
 	public void i_want_to_logout() {
+		
+		System.out.println("Logout Method");
 	    
 	}
 
