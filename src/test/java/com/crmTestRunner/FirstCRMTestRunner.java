@@ -11,7 +11,7 @@ import org.testng.annotations.DataProvider;
 		glue={"com.crm.stepdef"},
 		monochrome = true,
 		dryRun = false
-		//tags = ("@crmscenario")
+		//tags = ("@crmscenarioTest")
 		)
 
 
