@@ -15,7 +15,8 @@ public class Hook extends BaseUtilityPage{
     public void before(Scenario scenario) throws InterruptedException, IOException
     {
 		System.out.println("Running Scenario: "+scenario.getName());
-        init_chrome_browser();
+        init_ie_browser();
+		//init_chrome_browser();
 	    driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	    driver.manage().deleteAllCookies();
 	    driver.manage().window().maximize();

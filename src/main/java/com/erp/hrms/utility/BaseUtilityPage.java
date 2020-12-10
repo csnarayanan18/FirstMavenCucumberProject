@@ -15,6 +15,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import com.aventstack.extentreports.ExtentReports;
@@ -37,18 +39,21 @@ public class BaseUtilityPage {
 	public static ExtentReports extentReports;
 	public static ExtentTest extentTest;
 	public static ExtentTest features;
-	public static String reportLocation = System.getProperty("user.dir")+"\\ExtentReport";
+	public static String reportLocation = System.getProperty("user.dir") + "\\ExtentReport";
 	public static Actions action;
 	public static String screenshotdir = System.getProperty("user.dir") + "\\ExtentReport\\screenshots\\";
 
-	/* init() function used to initialize the driver */
-	/*
-	 * public static void init_ie_browser() throws InterruptedException {
-	 * System.setProperty("webdriver.ie.driver", "drivers/IEDriver.exe");
-	 * InternetExplorerOptions options = new InternetExplorerOptions();
-	 * options.destructivelyEnsureCleanSession(); driver = new
-	 * InternetExplorerDriver(options); }
-	 */
+	
+	  //init() function used to initialize the driver
+	  
+	  public static void init_ie_browser() throws InterruptedException {
+	  System.setProperty("webdriver.ie.driver", "drivers/IEDriverServer.exe");
+	  InternetExplorerOptions options = new InternetExplorerOptions();
+	  options.destructivelyEnsureCleanSession(); 
+	  driver = new  InternetExplorerDriver(options); 
+	  }
+	  
+	 
 
 	public static void init_chrome_browser() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
@@ -69,20 +74,21 @@ public class BaseUtilityPage {
 			if (menuvalues.get(i).getText().equals(value)) {
 				menuvalues.get(i).click();
 				break;
-			}			
+			}
 		}
 	}
-	
-	
-	/*send_textbox_value() function used to send the values to text box*/
+
+	/* send_textbox_value() function used to send the values to text box */
 	protected void send_textbox_value(By xpath, String excel_value) throws InterruptedException {
 		driver.findElement(xpath).clear();
-		/*((JavascriptExecutor)driver).executeScript("arguments[0].value='"+ excel_value +"';", 
-				driver.findElement(xpath));*/
+		/*
+		 * ((JavascriptExecutor)driver).executeScript("arguments[0].value='"+
+		 * excel_value +"';", driver.findElement(xpath));
+		 */
 		driver.findElement(xpath).sendKeys(excel_value);
 	}
-	
-	/*select_dropdown_value() function used to select the drop down values*/
+
+	/* select_dropdown_value() function used to select the drop down values */
 	protected void dropdown_select(By xpath, String excel_value) {
 		Select ddvalue = new Select(driver.findElement(xpath));
 		ddvalue.selectByVisibleText(excel_value);
@@ -91,17 +97,16 @@ public class BaseUtilityPage {
 	public void logout() throws Exception {
 		driver.findElement(prop.getLocator("LogoutButton")).click();
 	}
-	
-	public static String getBase64Screenshot() throws IOException 
-	{
-		String Base64StringOfScreenshot="";
+
+	public static String getBase64Screenshot() throws IOException {
+		String Base64StringOfScreenshot = "";
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		    
+
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMYYYY_HHmmss");
 		String sDate = sdf.format(date);
 		FileUtils.copyFile(src, new File(screenshotdir + "image_" + sDate + ".png"));
-		    
+
 		byte[] fileContent = FileUtils.readFileToByteArray(src);
 		Base64StringOfScreenshot = "data:image/png;base64," + Base64.getEncoder().encodeToString(fileContent);
 		return Base64StringOfScreenshot;
@@ -113,7 +118,7 @@ public class BaseUtilityPage {
 		String currentDir = System.getProperty("user.dir");
 		String timestamp = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
 		String SimpleDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		
+
 		File mainfolder = new File(currentDir + "\\Screenshots");
 		if (!mainfolder.exists() && !mainfolder.isDirectory()) {
 			mainfolder.mkdir();
@@ -135,15 +140,15 @@ public class BaseUtilityPage {
 		FileUtils.copyFile(srcFile, dstFile);
 
 	}
-	
-	/*failure screenShot() function used to take the screenshots*/
-	public void failure_screenShot(String ScenarioName,String PageName) throws IOException {
-		
+
+	/* failure screenShot() function used to take the screenshots */
+	public void failure_screenShot(String ScenarioName, String PageName) throws IOException {
+
 		Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(100)).takeScreenshot(driver);
 		String currentDir = System.getProperty("user.dir");
 		String timestamp = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
 		String SimpleDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		
+
 		File mainfolder = new File(currentDir + "\\Failure_Screenshots");
 		if (!mainfolder.exists() && !mainfolder.isDirectory()) {
 			mainfolder.mkdir();
